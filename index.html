@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Tish</title>
+
+    <!-- UIkit CSS -->
+    <link href="css/uikit.css" type="text/css" rel="stylesheet">
+    <!-- UIkit JS -->
+    <script src="js/uikit.min.js"></script>
+    <script src="uikit/dist/js/uikit-icons.min.js"></script>
+
+    <!-- Confetti library for fireworks -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            min-height: 100vh;
+            background:
+                    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                    url("images/overlay.png") center/cover no-repeat;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+            border-radius: 18px;
+        }
+
+        .glass-card * {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Main Card -->
+<div class="uk-section uk-flex uk-flex-middle" uk-height-viewport>
+    <div class="uk-container uk-container-small">
+        <div class="uk-card uk-card-large glass-card uk-width-1-1@m">
+            <div class="uk-card-header">
+                <div class="uk-grid-large uk-flex-middle" uk-grid>
+                    <div class="uk-width-auto">
+                        <img class="uk-border-circle" width="90" height="90" src="images/noti.png" alt="Avatar">
+                    </div>
+                    <div class="uk-width-expand">
+                        <h1 class="uk-card-title uk-margin-remove-bottom" style="font-size: 32px">
+                            New Message
+                        </h1>
+                        <p class="uk-text-meta uk-margin-remove-top">
+                            <time datetime="2026-02-01">February 1, 2026</time>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-card-body">
+                <p class="uk-text-bold" style="font-size: 24px">
+                    Hello Natassia, You have 1 new message from Aljay.
+                </p>
+            </div>
+
+            <div class="uk-card-footer">
+                <a href="#view-message" uk-toggle class="uk-button uk-button-text" style="color:white">
+                    Click to view
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="view-message" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body fullscreen" uk-overflow-auto style="border-radius:18px">
+
+        <!-- Close button -->
+        <button class="uk-modal-close-default" type="button" uk-close
+                style="background:#e8e8ed;border-radius:50%;height:36px;width:36px;">
+        </button>
+
+        <!-- Image -->
+        <div class="uk-text-center">
+            <img src="images/stitch.gif" alt="Logo" style="width:2000px;height:auto;margin-bottom:20px;">
+        </div>
+
+        <!-- Buttons -->
+        <div class="uk-flex uk-flex-center uk-flex-wrap uk-grid-small" uk-grid>
+            <div>
+                <a href="#"
+                   class="uk-button uk-button-medium fireworks-btn"
+                   style="
+                       border-radius:12px;
+                       font-size:17px;
+                       color:white;
+                       border:2px solid #f4a6c1;
+                       background-color:#1e81ce;
+                       font-weight:600;
+                       text-transform:none;
+                   ">
+                    Yes!
+                </a>
+            </div>
+
+            <div>
+                <a href="#"
+                   class="uk-button uk-button-medium fireworks-btn"
+                   style="
+                       border-radius:12px;
+                       font-size:17px;
+                       color:#1e81ce;
+                       border:2px solid #1e81ce;
+                       background-color:#f4a6c1;
+                       font-weight:600;
+                       text-transform:none;
+                   ">
+                    Of Course!
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fireworks Script -->
+<script>
+    function fireWorks() {
+        const duration = 1500;
+        const end = Date.now() + duration;
+
+        (function frame() {
+            // Left side
+            confetti({
+                particleCount: 6,
+                angle: 60,
+                spread: 70,
+                origin: { x: 0 }
+            });
+            // Right side
+            confetti({
+                particleCount: 6,
+                angle: 120,
+                spread: 70,
+                origin: { x: 1 }
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        })();
+    }
+
+    // Add fireworks effect to all buttons with class 'fireworks-btn'
+    document.querySelectorAll('.fireworks-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault(); // prevent page reload
+            fireWorks();
+        });
+    });
+</script>
+
+</body>
+</html>
